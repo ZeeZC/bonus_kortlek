@@ -1,23 +1,42 @@
-#skapa en kortlek med hjälp av objektorienterad programmering - använd klasser. Läs mer på classroom - uppgift4.
-from deck import Deck, Card
+#deck-test.py
+#Kör programmet i denna fil!
+from deck import Deck
 
-#Skapar en ny kortlek
-deck = Deck()
+#Meny för kortleken
+def meny():
+    deck = Deck()  #Startar med en blandad kortlek
 
-print("Antal kort i ny kortlek:", len(deck.cards))  # ska vara 52
+    while True:
+        print("\n--- MENY ---")
+        print("1. Dra ett kort")
+        print("2. Resetta kortleken")
+        print("3. Kort & Antal kvar")
+        print("4. Avsluta")
 
-#Testar show_all
-print("\nVisar hela kortleken:")
-deck.show_all()
+        val = input("Välj ett alternativ (1-4): ")
 
-#Testar shuffle metoden
-print("\nBlandar kortleken...")
-deck.shuffle()
-deck.show_all()
+        if val == "1":
+            kort = deck.draw() #Kallar draw metoden och drar ett kort
+            if kort:
+                print(f"Du drog: {kort}")
+                print(f"Antal kort kvar: {len(deck.cards)}")
+            
+        elif val == "2":
+            deck.reset() #Kallar reset metoden för att återställa leken
+            print("Kortleken har blivit resettad och blandad.")
+        
+        elif val == "3":
+            print(f"Antal kort kvar i leken: {len(deck.cards)}")
+            print("Korten som finns kvar:")
+            for kort in deck.cards: #Visar nuvarande kort kvar
+                print(kort, end=" ")
+            print()
+        
+        elif val == "4":
+            print("Avslutar programmet.")
+            break
+        else:
+            print("Fel val, försök igen.")
 
-#Testar draw metoden
-print("\nDrar 5 kort:")
-for _ in range(5):
-    print("Drog:", deck.draw())
-
-print("\nAntal kort kvar efter dragning:", len(deck.cards))
+if __name__ == "__main__":
+    meny()
